@@ -306,10 +306,94 @@
   }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+  /* HAMBURGER */
+  .nav-hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px; background: none; border: none;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--ink2); transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* MOBILE MENU DRAWER */
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100vh; z-index: 99;
+    background: var(--paper);
+    flex-direction: column; justify-content: center; align-items: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--display); font-size: 2rem; font-weight: 700;
+    color: var(--ink); text-decoration: none; letter-spacing: -0.02em;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--accent); }
+
   @media (max-width: 768px) {
-    .about-grid, .contact-grid, .exp-item { grid-template-columns: 1fr; gap: 2rem; }
-    .hero-bg-text { font-size: 15vw; }
+    /* NAV */
     .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+
+    /* HERO */
+    #hero { padding: 0 6vw 5rem; justify-content: flex-end; }
+    .hero-bg-text { font-size: 22vw; top: 8%; opacity: 0.5; }
+    .hero-tag { font-size: 11px; }
+    h1 { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+    .hero-sub { font-size: 1rem; margin-top: 1.5rem; }
+    .hero-meta {
+      flex-direction: column; gap: 0.6rem; margin-top: 2rem;
+    }
+    .cta-row { flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
+    .btn { text-align: center; padding: 1rem 1.5rem; }
+    .scroll-hint { display: none; }
+
+    /* SECTIONS */
+    section { padding: 5rem 6vw; }
+    h2 { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+
+    /* ABOUT */
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-card { padding: 1.2rem; }
+    .stat-num { font-size: 2.2rem; }
+
+    /* SKILLS */
+    .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+    /* EXPERIENCE */
+    .exp-item {
+      grid-template-columns: 1fr; gap: 0.75rem;
+      padding: 2rem 0;
+    }
+    .exp-date-col {
+      display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+    }
+    .exp-period { margin-top: 0; }
+    .exp-role { font-size: 1.2rem; }
+
+    /* PROJECTS */
+    .proj-grid { grid-template-columns: 1fr; gap: 1px; }
+    .proj-card { padding: 2rem 1.5rem; }
+
+    /* CONTACT */
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-intro { font-size: 1.1rem; }
+    .contact-links li { flex-direction: column; align-items: flex-start; gap: 0.3rem; padding: 1rem 0; }
+
+    /* FOOTER */
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 420px) {
+    .hero-bg-text { font-size: 26vw; }
+    .about-stats { grid-template-columns: 1fr; }
+    .stat-num { font-size: 2.5rem; }
   }
 </style>
 </head>
@@ -324,7 +408,19 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#skills" class="mobile-link">Stack</a>
+  <a href="#experience" class="mobile-link">Work</a>
+  <a href="#projects" class="mobile-link">Projects</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="https://drive.google.com/file/d/1hVoRExbUQvaYtAWwH0F8wN28Pk5FmCtH/view?usp=sharing" target="_blank" style="color: var(--accent); font-size: 1.2rem; margin-top: 1rem;">↓ Resume</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -620,6 +716,22 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
 </script>
 
 </body>
