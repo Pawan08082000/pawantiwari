@@ -65,13 +65,14 @@
     overflow: hidden;
   }
   .hero-bg-text {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute; top: 12%; left: 50%;
+    transform: translateX(-50%);
     font-family: var(--display); font-size: clamp(80px, 14vw, 200px);
     font-weight: 800; color: var(--paper2);
     white-space: nowrap; pointer-events: none; user-select: none;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.03em; z-index: 0; opacity: 0.7;
   }
+  .hero-content { position: relative; z-index: 1; }
   .hero-tag {
     font-family: var(--mono); font-size: 13px; font-weight: 400;
     letter-spacing: 0.12em; text-transform: uppercase;
@@ -115,6 +116,10 @@
     border: 1px solid var(--ink2); color: var(--ink2); background: transparent;
   }
   .btn-outline:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn-resume {
+    border: 1px solid var(--accent); color: var(--accent); background: transparent;
+  }
+  .btn-resume:hover { background: var(--accent); color: #fff; }
 
   /* SECTION BASE */
   section { padding: 7rem 5vw; }
@@ -324,17 +329,20 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg-text">BACKEND</div>
-  <div class="hero-tag">Available — Open to Relocation</div>
-  <h1>Pawan Kumar<br/><span>Tiwari</span></h1>
-  <p class="hero-sub">Full Stack Engineer specializing in scalable backend systems — microservices, event-driven pipelines, and clean API architecture.</p>
-  <div class="hero-meta">
-    <span><div class="dot"></div> 5+ Years Experience</span>
-    <span><div class="dot"></div> TypeScript / Node.js / Golang</span>
-    <span><div class="dot"></div> Bangalore → SF / London / Singapore</span>
-  </div>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="#contact">Get in Touch</a>
-    <a class="btn btn-outline" href="#experience">View Work</a>
+  <div class="hero-content">
+    <div class="hero-tag">Available — Open to Relocation</div>
+    <h1>Pawan Kumar<br/><span>Tiwari</span></h1>
+    <p class="hero-sub">Full Stack Engineer specializing in scalable backend systems — microservices, event-driven pipelines, and clean API architecture.</p>
+    <div class="hero-meta">
+      <span><div class="dot"></div> 5+ Years Experience</span>
+      <span><div class="dot"></div> TypeScript / Node.js / Golang</span>
+      <span><div class="dot"></div> Bangalore → SF / London / Singapore</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#contact">Get in Touch</a>
+      <a class="btn btn-outline" href="#experience">View Work</a>
+      <a class="btn btn-resume" href="https://drive.google.com/file/d/1hVoRExbUQvaYtAWwH0F8wN28Pk5FmCtH/view?usp=sharing" target="_blank">↓ Download Resume</a>
+    </div>
   </div>
   <div class="scroll-hint">Scroll</div>
 </section>
