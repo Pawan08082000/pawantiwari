@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pawan Kumar Tiwari — Full Stack Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d0d;
+    --ink2: #3a3a3a;
+    --ink3: #777;
+    --paper: #f7f4ef;
+    --paper2: #edeae3;
+    --paper3: #e0ddd5;
+    --accent: #c8440a;
+    --accent2: #e8601a;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5vw;
+    background: rgba(247,244,239,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--paper3);
+  }
+  .nav-logo {
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; color: var(--accent);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 12px; font-weight: 400;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink2); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 5vw 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--display); font-size: clamp(80px, 14vw, 200px);
+    font-weight: 800; color: var(--paper2);
+    white-space: nowrap; pointer-events: none; user-select: none;
+    letter-spacing: -0.03em;
+  }
+  .hero-tag {
+    font-family: var(--mono); font-size: 13px; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-tag::before {
+    content: ''; width: 40px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--ink2); max-width: 480px;
+    margin-top: 2rem; font-weight: 300;
+  }
+  .hero-meta {
+    display: flex; gap: 2rem; margin-top: 3rem;
+    font-family: var(--mono); font-size: 12px; color: var(--ink3);
+    letter-spacing: 0.06em;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 0.5rem; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .cta-row { display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 0.85rem 2rem;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none; cursor: pointer;
+    transition: all 0.2s; border: none;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn-outline {
+    border: 1px solid var(--ink2); color: var(--ink2); background: transparent;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* SECTION BASE */
+  section { padding: 7rem 5vw; }
+  .section-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 3.5rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--paper3);
+  }
+  h2 {
+    font-family: var(--display); font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;
+  }
+
+  /* ABOUT */
+  #about { background: var(--paper2); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
+  .about-text p { color: var(--ink2); font-size: 1.05rem; margin-bottom: 1.2rem; font-weight: 300; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .stat-card {
+    background: var(--paper); padding: 1.8rem;
+    border-left: 3px solid var(--accent);
+  }
+  .stat-num {
+    font-family: var(--display); font-size: 2.8rem; font-weight: 800;
+    color: var(--ink); line-height: 1; letter-spacing: -0.03em;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink3); margin-top: 0.4rem;
+  }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .skill-group {
+    background: var(--paper2); padding: 2rem;
+    border-top: 2px solid var(--accent);
+  }
+  .skill-group-title {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink3); margin-bottom: 1.2rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-family: var(--mono); font-size: 12px;
+    padding: 0.35rem 0.85rem;
+    background: var(--paper); color: var(--ink2);
+    border: 1px solid var(--paper3);
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+  }
+  .tag:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tag.hot { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--paper); }
+  .exp-list { margin-top: 3rem; }
+  .exp-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 3rem; padding: 3rem 0;
+    border-bottom: 1px solid var(--paper3);
+    position: relative;
+  }
+  .exp-item:first-child { border-top: 1px solid var(--paper3); }
+  .exp-date-col { padding-top: 0.3rem; }
+  .exp-company {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .exp-period {
+    font-family: var(--mono); font-size: 11px; color: var(--ink3);
+    letter-spacing: 0.06em; margin-top: 0.3rem;
+  }
+  .exp-role {
+    font-family: var(--display); font-size: 1.5rem; font-weight: 700;
+    color: var(--ink); letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+  .exp-loc {
+    font-family: var(--mono); font-size: 11px; color: var(--ink3);
+    letter-spacing: 0.06em; margin-bottom: 1rem; text-transform: uppercase;
+  }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.95rem; color: var(--ink2); margin-bottom: 0.75rem;
+    padding-left: 1.5rem; position: relative; font-weight: 300; line-height: 1.6;
+  }
+  .exp-bullets li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-family: var(--mono);
+  }
+  .exp-impact {
+    display: inline-block; font-family: var(--mono); font-size: 11px;
+    font-weight: 500; color: var(--accent); letter-spacing: 0.05em;
+  }
+
+  /* PROJECTS (highlights) */
+  #projects { background: var(--ink); color: var(--paper); }
+  #projects .section-label { color: var(--accent2); }
+  #projects .section-label::after { background: #333; }
+  #projects h2 { color: var(--paper); }
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; margin-top: 3rem; background: #333; }
+  .proj-card {
+    background: var(--ink); padding: 2.5rem;
+    transition: background 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .proj-card:hover { background: #1a1a1a; }
+  .proj-num {
+    font-family: var(--mono); font-size: 11px; color: #555;
+    letter-spacing: 0.12em; margin-bottom: 1.5rem;
+  }
+  .proj-title {
+    font-family: var(--display); font-size: 1.25rem; font-weight: 700;
+    color: var(--paper); margin-bottom: 0.75rem; letter-spacing: -0.01em;
+  }
+  .proj-desc { font-size: 0.9rem; color: #999; font-weight: 300; line-height: 1.6; margin-bottom: 1.5rem; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .proj-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.25rem 0.65rem;
+    border: 1px solid #333; color: #666;
+    transition: all 0.15s;
+  }
+  .proj-card:hover .proj-tag { border-color: var(--accent); color: var(--accent); }
+
+  /* CONTACT */
+  #contact { background: var(--paper2); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 3rem; align-items: start; }
+  .contact-intro { font-size: 1.3rem; color: var(--ink2); font-weight: 300; line-height: 1.6; }
+  .contact-intro strong { font-weight: 600; color: var(--ink); font-family: var(--display); }
+  .contact-links { list-style: none; }
+  .contact-links li {
+    padding: 1.2rem 0; border-bottom: 1px solid var(--paper3);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .contact-links li:first-child { border-top: 1px solid var(--paper3); }
+  .contact-key {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink3);
+  }
+  .contact-val {
+    font-family: var(--mono); font-size: 13px; color: var(--ink);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .contact-val:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: #555;
+    padding: 2.5rem 5vw;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; right: 5vw;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink3);
+    writing-mode: vertical-rl; text-orientation: mixed;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .scroll-hint::before {
+    content: ''; width: 1px; height: 60px; background: var(--ink3);
+    animation: scrollDown 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollDown {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* FADE IN */
+  .fade-up {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .about-grid, .contact-grid, .exp-item { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-bg-text { font-size: 15vw; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PKT.DEV</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Stack</a></li>
+    <li><a href="#experience">Work</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">BACKEND</div>
+  <div class="hero-tag">Available — Open to Relocation</div>
+  <h1>Pawan Kumar<br/><span>Tiwari</span></h1>
+  <p class="hero-sub">Full Stack Engineer specializing in scalable backend systems — microservices, event-driven pipelines, and clean API architecture.</p>
+  <div class="hero-meta">
+    <span><div class="dot"></div> 5+ Years Experience</span>
+    <span><div class="dot"></div> TypeScript / Node.js / Golang</span>
+    <span><div class="dot"></div> Bangalore → SF / London / Singapore</span>
+  </div>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#contact">Get in Touch</a>
+    <a class="btn btn-outline" href="#experience">View Work</a>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — About</div>
+  <h2>Engineer at heart,<br/>builder by nature</h2>
+  <div class="about-grid fade-up">
+    <div class="about-text">
+      <p>I'm a full-stack engineer with a strong backend lean — roughly 70% systems/API and 30% frontend. My work lives at the intersection of complex integrations, distributed architecture, and ruthlessly clean API design.</p>
+      <p>I've spent 5+ years stitching together everything from 15-year-old on-prem NAC systems to modern RAG pipelines. I thrive in fast-paced environments where ownership matters and good engineering speaks for itself.</p>
+      <p>Currently at Cimpress (Vistaprint's parent company), building invoice-generation infrastructure and AI infra tooling. Actively looking for my next challenge — preferably in San Francisco, London, or Singapore.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">60<span>%</span></div>
+        <div class="stat-label">Processing time cut</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">200<span>ms</span></div>
+        <div class="stat-label">Query latency achieved</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">15<span>%</span></div>
+        <div class="stat-label">Conversion lift</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 — Stack</div>
+  <h2>Tools I build with</h2>
+  <div class="skills-grid fade-up">
+    <div class="skill-group">
+      <div class="skill-group-title">Languages & Frameworks</div>
+      <div class="skill-tags">
+        <span class="tag hot">TypeScript</span>
+        <span class="tag hot">Node.js</span>
+        <span class="tag hot">NestJS</span>
+        <span class="tag">NextJS</span>
+        <span class="tag">Golang</span>
+        <span class="tag">Java</span>
+        <span class="tag">Python</span>
+        <span class="tag">Spring Boot</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Databases & Caching</div>
+      <div class="skill-tags">
+        <span class="tag hot">PostgreSQL</span>
+        <span class="tag hot">Redis</span>
+        <span class="tag hot">Elasticsearch</span>
+        <span class="tag">MySQL</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Cloud & Infrastructure</div>
+      <div class="skill-tags">
+        <span class="tag hot">AWS (CDK, EC2, SQS, Lambda, S3)</span>
+        <span class="tag">Azure</span>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">Docker</span>
+        <span class="tag">CI/CD</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Architecture & Patterns</div>
+      <div class="skill-tags">
+        <span class="tag hot">Microservices</span>
+        <span class="tag hot">Event-Driven (Outbox + SQS)</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">Kafka</span>
+        <span class="tag">WebSockets</span>
+        <span class="tag">RAG / MCP</span>
+        <span class="tag">Webhooks</span>
+        <span class="tag">Adyen / PayPal</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">03 — Experience</div>
+  <h2>Where I've shipped</h2>
+  <div class="exp-list">
+
+    <div class="exp-item fade-up">
+      <div class="exp-date-col">
+        <div class="exp-company">Cimpress</div>
+        <div class="exp-period">Aug 2024 – Present</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Development Engineer II</div>
+        <div class="exp-loc">Bangalore, India</div>
+        <ul class="exp-bullets">
+          <li>Unified fragmented invoice-generation pipelines across disconnected internal systems — <span class="exp-impact">cut processing time by 60%</span> and made the data reliable enough to build on top of.</li>
+          <li>Built a 6-state approval workflow engine (Express, TypeScript, PostgreSQL) with <strong>lease-based locking</strong> to prevent concurrent worker conflicts.</li>
+          <li>Implemented Transactional Outbox pattern with AWS SQS — processes millions of API requests reliably with zero lost writes or duplicate side-effects, even during upstream outages.</li>
+          <li>Wired together a RAG pipeline and MCP server so the team can run infrastructure tasks through natural-language prompts safely — an AI infra agent for internal tooling.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-date-col">
+        <div class="exp-company">Fastr Inc</div>
+        <div class="exp-period">Apr 2023 – Aug 2024</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Engineer II</div>
+        <div class="exp-loc">Remote (Full-time)</div>
+        <ul class="exp-bullets">
+          <li>Built Redis + Elasticsearch caching layer for an Order Management System — real-time reporting queries that previously timed out now return in <span class="exp-impact">under 200ms</span>.</li>
+          <li>Designed a rule-based promotion engine using Strategy and Specification patterns — marketing configures campaigns without touching code; <span class="exp-impact">lifted conversion 15%</span>.</li>
+          <li>Replaced spaghetti shell scripts with a proper CI/CD automation service — <span class="exp-impact">cut deploy time by 40%</span> and unified failure debugging in one place.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-date-col">
+        <div class="exp-company">Kloudspot</div>
+        <div class="exp-period">Jul 2021 – Apr 2023</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Engineer</div>
+        <div class="exp-loc">Bangalore, India</div>
+        <ul class="exp-bullets">
+          <li>Integrated Cisco ISE (a 15-year-old on-premises NAC system) with a modern OAuth flow — automated guest Wi-Fi provisioning across enterprise deployments.</li>
+          <li>Shipped an npm integration library that standardized how three internal products communicated with external APIs — reduced integration bugs significantly.</li>
+          <li>Built an Azure Teams scheduling bot with real-time meeting analytics using WebSockets for push updates.</li>
+          <li>Developed Obeya Mode — an interactive 3D collaborative platform using Three.js and TailwindCSS.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">04 — Highlights</div>
+  <h2>Systems I'm proud of</h2>
+  <div class="proj-grid fade-up">
+    <div class="proj-card">
+      <div class="proj-num">01</div>
+      <div class="proj-title">Transactional Outbox Pipeline</div>
+      <div class="proj-desc">High-scale event delivery system processing millions of requests reliably with zero lost writes — even when upstream systems go down.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">AWS SQS</span>
+        <span class="proj-tag">TypeScript</span>
+        <span class="proj-tag">PostgreSQL</span>
+        <span class="proj-tag">Outbox Pattern</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">02</div>
+      <div class="proj-title">AI Infra Agent (RAG + MCP)</div>
+      <div class="proj-desc">RAG pipeline + Model Context Protocol server enabling the team to run infrastructure operations through natural-language prompts.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">RAG</span>
+        <span class="proj-tag">MCP Server</span>
+        <span class="proj-tag">Node.js</span>
+        <span class="proj-tag">LLM</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">03</div>
+      <div class="proj-title">Order Management Caching Layer</div>
+      <div class="proj-desc">Layered Redis + Elasticsearch in front of OMS — real-time queries that used to time out now complete in under 200ms on a high-scale platform.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Redis</span>
+        <span class="proj-tag">Elasticsearch</span>
+        <span class="proj-tag">NestJS</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">04</div>
+      <div class="proj-title">Cisco ISE OAuth Integration</div>
+      <div class="proj-desc">Bridged a 15-year-old on-premises NAC system to modern OAuth, enabling automated guest Wi-Fi provisioning across enterprise networks.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Cisco ISE</span>
+        <span class="proj-tag">OAuth</span>
+        <span class="proj-tag">Node.js</span>
+        <span class="proj-tag">REST API</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">05</div>
+      <div class="proj-title">Promotion Engine</div>
+      <div class="proj-desc">Rule-based promotion system using Strategy + Specification patterns — lets marketing configure campaigns entirely without engineering involvement.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">TypeScript</span>
+        <span class="proj-tag">Strategy Pattern</span>
+        <span class="proj-tag">PostgreSQL</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">06</div>
+      <div class="proj-title">Obeya Mode — 3D Collaboration</div>
+      <div class="proj-desc">Interactive 3D collaborative platform with customized real-time screens, built with Three.js for immersive multi-user workspace visualization.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Three.js</span>
+        <span class="proj-tag">WebSockets</span>
+        <span class="proj-tag">TailwindCSS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">05 — Contact</div>
+  <h2>Let's build something</h2>
+  <div class="contact-grid fade-up">
+    <div>
+      <p class="contact-intro">I'm actively looking for backend/full-stack roles in <strong>San Francisco, London,</strong> or <strong>Singapore</strong>. I need H-1B or TN visa sponsorship and I'm happy to relocate.</p>
+      <br/>
+      <p class="contact-intro" style="font-size:1rem;">High ownership, low ego. If you're building something that scales — let's talk.</p>
+      <br/>
+      <a href="mailto:pawan8.tiwari7@gmail.com" class="btn btn-primary">Send me an email</a>
+    </div>
+    <ul class="contact-links">
+      <li>
+        <span class="contact-key">Email</span>
+        <a href="mailto:pawan8.tiwari7@gmail.com" class="contact-val">pawan8.tiwari7@gmail.com</a>
+      </li>
+      <li>
+        <span class="contact-key">Phone</span>
+        <span class="contact-val">+91 9770861403</span>
+      </li>
+      <li>
+        <span class="contact-key">LinkedIn</span>
+        <a href="https://linkedin.com/in/pawantiwaripage" target="_blank" class="contact-val">pawantiwaripage</a>
+      </li>
+      <li>
+        <span class="contact-key">Location</span>
+        <span class="contact-val">Bangalore, India</span>
+      </li>
+      <li>
+        <span class="contact-key">Relocation</span>
+        <span class="contact-val">SF / London / Singapore</span>
+      </li>
+      <li>
+        <span class="contact-key">Visa</span>
+        <span class="contact-val">H-1B / TN sponsorship needed</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Pawan Kumar Tiwari. Built with HTML/CSS/JS.</p>
+  <p>Open to <a href="#contact">new opportunities</a></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const siblings = e.target.parentElement.querySelectorAll('.fade-up');
+        siblings.forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), i * 120);
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
